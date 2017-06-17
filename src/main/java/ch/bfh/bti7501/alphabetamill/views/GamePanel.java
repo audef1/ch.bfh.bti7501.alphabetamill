@@ -22,7 +22,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Board board) {
         this.board = board;
-        this.setSize(1000, 800);
+        this.setBackground(new Color(225,174,108));
 
         try {
             String pathToImageSortBy = getClass().getClassLoader().getResource("background.jpg").getFile();
@@ -81,27 +81,34 @@ public class GamePanel extends JPanel {
             }
 
             if (board.getPositionState(i) != 0 || (controller.getMove() != null && controller.getMove().getToPosition() == i)) {
+                Point coords = controller.getPositionCoords(i);
+
                 if (controller.getPositionSelected() == i) {
                     g.setColor(new Color(216,0,0));
+                    g.fillOval(coords.x - 35, coords.y - 35, 70, 70);
+                    g.setColor(Color.BLACK);
+                    g.drawOval(coords.x - 35, coords.y - 35, 70, 70);
+                    g.setColor(Color.WHITE);
+                    g2.setStroke(new BasicStroke(1));
+                    g.drawOval(coords.x - 24, coords.y - 24, 48, 48);
+                    g.drawOval(coords.x - 12, coords.y - 12, 24, 24);
                 } else if (board.getPositionState(i) == 1 || (controller.getMove() != null && controller.getMove().getToPosition() == i && board.getCurrentPlayer() == 0)) {
                     g.setColor(Color.WHITE);
-                    Point coords = controller.getPositionCoords(i);
                     g.fillOval(coords.x - 30, coords.y - 30, 60, 60);
                     g.setColor(Color.BLACK);
                     g.drawOval(coords.x - 30, coords.y - 30, 60, 60);
-
+                    g2.setStroke(new BasicStroke(1));
+                    g.drawOval(coords.x - 20, coords.y - 20, 40, 40);
+                    g.drawOval(coords.x - 10, coords.y - 10, 20, 20);
                 } else {
                     g.setColor(Color.BLACK);
-                    Point coords = controller.getPositionCoords(i);
                     g.fillOval(coords.x - 30, coords.y - 30, 60, 60);
                     g.drawOval(coords.x - 30, coords.y - 30, 60, 60);
                     g.setColor(Color.LIGHT_GRAY);
+                    g2.setStroke(new BasicStroke(1));
+                    g.drawOval(coords.x - 20, coords.y - 20, 40, 40);
+                    g.drawOval(coords.x - 10, coords.y - 10, 20, 20);
                 }
-
-                Point coords = controller.getPositionCoords(i);
-                g2.setStroke(new BasicStroke(1));
-                g.drawOval(coords.x - 20, coords.y - 20, 40, 40);
-                g.drawOval(coords.x - 10, coords.y - 10, 20, 20);
             }
         }
     }
